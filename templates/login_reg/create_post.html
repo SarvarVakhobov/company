@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+	<!-- templatemo 418 form pack -->
+    <!-- 
+    Form Pack
+    http://www.templatemo.com/preview/templatemo_418_form_pack 
+    -->
+	<title>Posts of {{user.username}}</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
+	<link href="{% static 'login_reg/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'login_reg/css/bootstrap-theme.min.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'login_reg/css/templatemo_style.css' %}" rel="stylesheet" type="text/css">	
+</head>
+<body class="templatemo-bg-gray">
+	<h1 class="margin-bottom-15">Posts of {{ user.username }}</h1>
+	<div class="container">
+	
+			<div class="col-md-12">	
+				{% for el in posts %}		
+					<form class="form-horizontal templatemo-create-account templatemo-container" role="form" action="#" method="post">
+						<div style="text-align: center;">
+							<img style="height: 300px;position: relative;margin-bottom: 30px" src="{{el.image.url}}" alt="">
+						</div>
+						<div class="form-inner">
+							<div class="form-group">
+								<div class="col-md-6">		      	
+									<label for="first_name" class="control-label"><b>Title: </b></label>
+									{{el.title}}
+								</div>           
+							</div>
+							<div class="form-group">
+								<div class="col-md-6">		      	
+									<label for="first_name" class="control-label"><b>Text: </b></label><br>
+									{{el.text}}
+								</div>             
+							</div>
+							<div class="form-group">
+								<div class="col-md-6">		      	
+									<label for="first_name" class="control-label"><b>Tag: </b></label><br>
+									{{el.tag}}
+								</div>  
+								<div class="col-md-6">		          	
+									<label for="last_name" class="control-label"><b>Date published: </b></label><br>
+									{{el.date_time}}		            		            		            
+								</div>             
+							</div>
+							
+							
+							<div class="form-group">
+								<div class="col-md-12">
+									<a href="{% url 'editpost' el.id %}" class="btn btn-info">Edit</a>
+									<a href="{% url 'delete_post' el.id %}" class="btn btn-info">Delete</a>
+									<a href="{% url 'index' %}" class="pull-right btn btn-info">Home</a>
+								</div>
+							
+							</div>	
+						</div>	
+						</div>				    	
+					</form>		
+				{% endfor %}      
+			</div>
+	
+		<div style='margin:100px 0 100px 0' class="col-md-12">			
+			<form enctype="multipart/form-data" class="form-horizontal templatemo-create-account templatemo-container" role="form" action="#" method="POST">{% csrf_token %}
+				<div class="form-inner">
+					<div class="form-group">
+			         	<div class="col-md-6">		      	
+			            	<label for="first_name" class="control-label">Title</label><br>
+							{{form.title}}
+			          	</div>  
+			          	<div class="col-md-6">		          	
+			            	<label for="last_name" class="control-label">Text</label>
+			            	{{form.text}}		            		            		            
+			          	</div>             
+			        </div>
+					<div class="form-group">
+						<div class="col-md-6">		      	
+						  	<label for="first_name" class="control-label">Tag</label><br>
+						  	{{form.tag}}
+						</div>  
+						<div class="col-md-6">		          	
+						  	<label for="last_name" class="control-label">Image</label>
+						  	{{form.image}}		            		            		            
+						</div>             
+					</div>
+			        
+			        <div class="form-group">
+			          	<div class="col-md-12">
+							
+			            	<input type="submit" value="Save" class="btn btn-info">
+			            	<a href="{% url 'index' %}" class="btn btn-info">Home</a>
+						</div>
+					
+			        </div>	
+				</div>	
+				</div>				    	
+		      </form>		      
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="{% static 'login_reg/js/jquery-1.11.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'login_reg/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

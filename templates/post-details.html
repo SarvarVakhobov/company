@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  <title>Post details</title>
+{% endblock title %}
+{% block active %}
+<ul>
+  <li><a href="{% url 'index' %}">Home</a></li>
+
+  <li class="dropdown"><a href="#"><span>About</span> <i class="bi bi-chevron-down"></i></a>
+    <ul>
+      <li><a href="{% url 'about' %}">About Us</a></li>
+      <li><a href="{% url 'team' %}">Team</a></li>
+    </ul>
+  </li>
+
+  <li><a href="{% url 'services' %}">Services</a></li>
+  <li><a href="{% url 'post' %}">Post</a></li>
+  <li><a href="{% url 'blog' %}">Blog</a></li>
+  <li><a href="{% url 'contact' %}">Contact</a></li>
+  <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down"></i></a>
+    <ul>
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'com_profile' user.username %}">Your Profile</a></li>
+        <li><a href="{% url 'worker_register' %}">Register for worker</a></li>
+        <li><a href="{% url 'user_logout' %}">Log out</a></li>
+      {% else %}
+        <li><a href="{% url 'company_register' %}">Registration</a></li>
+        <li><a href="{% url 'com_login' %}">Log in</a></li>
+      {% endif %}
+    </ul>
+  </li>
+
+</ul>
+{% endblock active %}
+{% block content %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Post dateils</h2>
+          <ol>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'post' %}">Post</a></li>
+            <li>Post details</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+                <div class="swiper-slide">
+                  <img src="{{post.image.url}}" alt="">
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="portfolio-info">
+              <h3>Post information</h3>
+              <ul>
+                {% comment %} <li><strong>Category</strong>: Web design</li> {% endcomment %}
+                <li><strong>Client</strong>: {{post.author}}</li>
+                <li><strong>Project date</strong>: {{post.date}}</li>
+                <li><strong>Project URL</strong>: <a href="#">{{post.author.email}}</a></li>
+              </ul>
+            </div>
+            <div class="portfolio-description">
+              <h2>{{post.title}}</h2>
+              <p>
+                {{post.text}}  
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+  {% endblock content %}

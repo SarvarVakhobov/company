@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+	<!-- templatemo 418 form pack -->
+    <!-- 
+    Form Pack
+    http://www.templatemo.com/preview/templatemo_418_form_pack 
+    -->
+	<title>Profile of {{user.username}}</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
+	<link href="{% static 'login_reg/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'login_reg/css/bootstrap-theme.min.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'login_reg/css/templatemo_style.css' %}" rel="stylesheet" type="text/css">	
+</head>
+<body class="templatemo-bg-gray">
+	<h1 class="margin-bottom-15">Profile of {{ user.username }}</h1>
+	<div class="container">
+		<div class="col-md-12">			
+			<form class="form-horizontal templatemo-create-account templatemo-container" role="form" action="#" method="post">{% csrf_token %}
+				<div style="text-align: center;">
+					<img style="height: 300px;width: 300px;border-radius: 50%;position: relative;margin-bottom: 30px" src="{{user.avatar.url}}" alt="">
+				</div>
+				<div class="form-inner">
+					<div class="form-group">
+			         	<div class="col-md-6">		      	
+			            	<label for="first_name" class="control-label">First Name</label>
+							{{form.first_name}}
+			          	</div>  
+			          	<div class="col-md-6">		          	
+			            	<label for="last_name" class="control-label">Last Name</label>
+			            	{{form.last_name}}		            		            		            
+			          	</div>             
+			        </div>
+					<div class="form-group">
+						<div class="col-md-6">		      	
+						  	<label for="first_name" class="control-label">Username</label>
+						  	{{form.username}}
+						</div>  
+						<div class="col-md-6">		          	
+						  	<label for="last_name" class="control-label">Campany name</label>
+						  	{{form.name}}		            		            		            
+						</div>             
+					</div>
+					<div class="form-group">
+						<div class="col-md-6">		      	
+						  	<label for="first_name" class="control-label">Company Category</label>
+						  	{{form.category_company}}
+						</div>              
+					</div>
+					<div class="form-group">
+						<div class="col-md-6">		      	
+						  	<label for="first_name" class="control-label">Email</label>
+						  	{{form.email}}
+						</div>  
+						<div class="col-md-6">		          	
+						  	<label for="last_name" class="control-label">Tel num</label>
+						  	{{form.number}}		            		            		            
+						</div>             
+					</div>
+					<div class="form-group">
+						<div class="col-md-6">		      	
+						  	<label for="first_name" class="control-label">Avatar</label>
+						  	{{form.avatar}}
+						</div> 
+					</div> 
+					<div class="form-group">
+						<div class="col-md-6">		          	
+						  	<label for="last_name" class="control-label">Bio</label>
+						  	{{form.bio}}		            		            		            
+						</div>             
+					</div>
+					<div class="form-group">
+						<div class="col-md-6">		          	
+						  	<label for="last_name" class="control-label">Telegram</label>
+						  	{{form.telegram_link}}		            		            		            
+						</div>             
+					</div>
+					<div class="form-group">
+						<div class="col-md-6">		          	
+						  	<label for="last_name" class="control-label">Instagram</label>
+						  	{{form.instagram_link}}		            		            		            
+						</div>             
+					</div>
+					<div class="form-group">
+						<div class="col-md-6">		          	
+						  	<label for="last_name" class="control-label">Facebook</label>
+						  	{{form.facebook_link}}		            		            		            
+						</div>             
+					</div>
+			        
+			        <div class="form-group">
+			          	<div class="col-md-12">
+			            	<input type="submit" value="Save" class="btn btn-info">
+			            	<a href="{% url 'index' %}" class="pull-right"><input type="submit" value="Home" class="btn btn-info"></a>
+						</div>
+					
+			        </div>	
+				</div>	
+				</div>				    	
+		      </form>		      
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="{% static 'login_reg/js/jquery-1.11.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'login_reg/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

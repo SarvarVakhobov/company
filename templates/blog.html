@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  <title>Blog</title>
+{% endblock title %}
+
+{% block active %}
+<ul>
+  <li><a href="{% url 'index' %}">Home</a></li>
+
+  <li class="dropdown"><a href="#"><span>About</span> <i class="bi bi-chevron-down"></i></a>
+    <ul>
+      <li><a href="{% url 'about' %}">About Us</a></li>
+      <li><a href="{% url 'team' %}">Team</a></li>
+    </ul>
+  </li>
+
+  <li><a href="{% url 'services' %}">Services</a></li>
+  <li><a href="{% url 'post' %}">Post</a></li>
+  <li><a class="active" href="{% url 'blog' %}">Blog</a></li>
+  <li><a href="{% url 'contact' %}">Contact</a></li>
+  <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down"></i></a>
+    <ul>
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'com_profile' user.username %}">Your Profile</a></li>
+        <li><a href="{% url 'worker_register' %}">Register for worker</a></li>
+        <li><a href="{% url 'user_logout' %}">Log out</a></li>
+      {% else %}
+        <li><a href="{% url 'company_register' %}">Registration</a></li>
+        <li><a href="{% url 'com_login' %}">Log in</a></li>
+      {% endif %}
+    </ul>
+  </li>
+
+</ul>
+{% endblock active %}
+{% block content %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Blog</h2>
+          <ol>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li>Blog</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Section ======= -->
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+          <div class="col-lg-8 entries">
+            {% for b in blog %}
+              <article class="entry">
+
+                <div class="entry-img">
+                  <img src="{{b.image.url}}" alt="" class="img-fluid">
+                </div>
+
+                <h2 class="entry-title">
+                  <a href="{% url 'blogsingle' b.id %}">{{b.title}}</a>
+                </h2>
+
+                <div class="entry-meta">
+                  <ul>
+                    <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="{% url 'blogsingle' b.id %}">{{b.author}}</a></li>
+                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="{% url 'blogsingle' b.id %}">{{b.date}}</a></li>
+                    <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="{% url 'blogsingle' b.id %}">{{b.get_comment_count}} Comments</a></li>
+                  </ul>
+                </div>
+
+                <div class="entry-content">
+                  <p>
+                  {{b.text}}  
+                  </p>
+                  <div class="read-more">
+                    <a href="{% url 'blogsingle' b.id %}">Read More</a>
+                  </div>
+                </div>
+
+              </article><!-- End blog entry -->
+            {% endfor %}
+
+            <div class="blog-pagination">
+              <ul class="justify-content-center">
+                {% for i in blog.paginator.page_range %}
+                  {% if blog.number == i %}    
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                  {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+
+          </div><!-- End blog entries list -->
+
+          <div class="col-lg-4">
+
+            <div class="sidebar">
+
+              <h3 class="sidebar-title">Search</h3>
+              <div class="sidebar-item search-form">
+                <form action="">
+                  <input name='search' type="text">
+                  <button type="submit"><i class="bi bi-search"></i></button>
+                </form>
+              </div><!-- End sidebar search formn-->
+
+              <h3 class="sidebar-title">Categories</h3>
+              <div class="sidebar-item categories">
+                <ul>
+                  {% for cat in categories %}
+                    <li><a href="?categories={{cat.id}}">{{cat}} <span>({{cat.get_count}})</span></a></li>
+                  {% endfor %}
+                </ul>
+              </div><!-- End sidebar categories-->
+
+              <h3 class="sidebar-title">Recent Posts</h3>
+              <div class="sidebar-item recent-posts">
+                {% for el in posts %}
+                  <div class="post-item clearfix">
+                    <img style="height: 70px;width: 70px;" src="{{el.image.url}}" alt="">
+                    <h4><a href="{% url 'postdateils' el.title %}">{{el.title}}</a></h4>
+                    <time datetime="2020-01-01">{{el.date}}</time>
+                  </div>
+                {% endfor %}
+              </div><!-- End sidebar recent posts-->
+
+              <h3 class="sidebar-title">Tags</h3>
+              <div class="sidebar-item tags">
+                <ul id="portfolio-flters">
+                  <a href="{% url 'post' %}" class="filter-active" style="margin-right:10px">All</a>
+                  {% for el in tags %}
+                    <a href="../post/?tagid={{el.id}}" style="margin-right:10px">{{el.tag}}</a>
+                  {% endfor %}
+                </ul>
+              </div><!-- End sidebar tags-->
+
+            </div><!-- End sidebar -->
+
+          </div><!-- End blog sidebar -->
+
+        </div>
+
+      </div>
+    </section><!-- End Blog Section -->
+
+  </main><!-- End #main -->
+  {% endblock content %}
