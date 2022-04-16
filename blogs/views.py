@@ -1,5 +1,6 @@
+from re import search
 from unicodedata import category
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, HttpResponseRedirect
 from django.db.models import Q
 
 from .forms import BlogForm, CommentsForm
@@ -39,6 +40,9 @@ def blog(request):
     return render(request, 'blog.html', context)
 
 def blogsingle(request, pk):
+    search_query = request.GET.get('search', '')
+    if search_query:
+        return redirect(f'../?search={search_query}')
     categories = Category.objects.all()
     blog = Blog.objects.get(id=pk)
     posts = Post.objects.all().order_by('-date_time')[:5]

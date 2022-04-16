@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import Custom_user, Workers
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Category(models.Model):
@@ -15,7 +16,7 @@ class Category(models.Model):
 class Blog(models.Model):
     author = models.ForeignKey(Custom_user, on_delete=models.SET_NULL, null=True, blank=True)
     title = models.CharField(max_length=300, blank=True)
-    text = models.TextField()
+    text = RichTextField(blank=True,null=True)
     image = models.ImageField(upload_to="blog/images")
     date = models.DateField(auto_now_add=True)
     date_time = models.DateTimeField(auto_now_add=True)

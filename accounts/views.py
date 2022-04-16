@@ -15,19 +15,15 @@ from posts.models import Post
 # Create your views here.
 def company_register(request):
     form = Com_userForm(request.POST)
-    print('1')
     if request.method == "POST":
         form = Com_userForm(request.POST)
-        print('2')
         if form.is_valid():
-            print('3')
             user = form.cleaned_data.get('username')
             user = form.save(commit=False)
             user.save()
             return redirect('com_login')
         else:
             form = Custom_user()
-            print('4')
             messages.error(request, "Not found")
     context = {
         'form':form,
@@ -94,7 +90,10 @@ def work_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password1 = request.POST.get('password1')
-        worker = Workers.objects.get(username=username, password1=password1)
+        try:
+            worker = Workers.objects.get(username=username, password1=password1)
+        except:
+            return redirect('work_login')
 
         if worker.category_worker == "Bg":
             return redirect('addblog', request.user.username)

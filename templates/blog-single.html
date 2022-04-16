@@ -82,7 +82,7 @@
 
                 <div class="entry-content">
                   <p>
-                    {{blog.text}}  
+                    {{blog.text|safe}}  
                   </p>
 
                 </div>
@@ -165,7 +165,7 @@
                     <form action="" method="post">{% csrf_token %}
                       <textarea name="message" class="form-control" placeholder="Your Comment*"></textarea>
                       <input type="hidden" name="parent_id" value="{{el.id}}" >
-                      <input class="bi bi-reply-fill" type="submit" value="Replay">
+                      <input class="bi bi-reply-fill" type="submit" value="Reply">
                     </form>
 
                   </div><!-- End comment #2-->

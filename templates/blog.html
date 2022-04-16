@@ -81,7 +81,7 @@
 
                 <div class="entry-content">
                   <p>
-                  {{b.text}}  
+                  {{b.text|safe}}  
                   </p>
                   <div class="read-more">
                     <a href="{% url 'blogsingle' b.id %}">Read More</a>
